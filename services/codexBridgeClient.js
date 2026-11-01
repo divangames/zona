@@ -4,6 +4,7 @@ const os = require('node:os');
 const { randomUUID } = require('node:crypto');
 const { spawnSync } = require('node:child_process');
 const dotenv = require('dotenv');
+const { runBridgeTransport } = require('./bridgeTransport');
 
 function deviceId() {
   const dir = process.env.CODEX_HOME || path.join(os.homedir(), '.codex');
@@ -24,19 +25,16 @@ function bridgeRequest(request) {
   const target = d.ZONA_BRIDGE_HOST ? `${d.ZONA_BRIDGE_USER || 'root'}@${d.ZONA_BRIDGE_HOST}` : (d.VPS_SSH || `${d.VPS_USER || 'root'}@${d.VPS_HOST || ''}`);
   const remote = d.ZONA_BRIDGE_PATH || d.VPS_PATH;
   if (!/^[a-zA-Z0-9][a-zA-Z0-9_.@-]*$/.test(target) || !/^\/[a-zA-Z0-9_./-]+$/.test(remote || '')) throw new Error('Некорректные параметры SSH.');
-  const args = ['-o', 'BatchMode=yes', '-o', 'ConnectTimeout=10', '-o', 'StrictHostKeyChecking=yes', '-o', 'IdentitiesOnly=yes'];
+  const args = ['-o', 'BatchMode=yes', '-o', 'ConnectTimeout=15', '-o', 'ConnectionAttempts=2', '-o', 'ServerAliveInterval=5', '-o', 'ServerAliveCountMax=2', '-o', 'StrictHostKeyChecking=yes', '-o', 'IdentitiesOnly=yes'];
   const key = d.ZONA_BRIDGE_SSH_KEY || d.VPS_SSH_KEY;
   if (key) {
     if (!fs.existsSync(key)) throw new Error('SSH-ключ из deploy.local.env не найден на этом ПК.');
     args.push('-i', key);
   }
   args.push(target, `node '${remote}/scripts/bridge-store.js'`);
-  // Only retry idempotent operations. Never repeat claim after an ambiguous response.
-  const attempts = ['health', 'status', 'bind'].includes(request.action) ? 2 : 1;
-  for (let i = 0; i < attempts; i++) {
-    const result = spawnSync('ssh', args, { input: JSON.stringify(request), encoding: 'utf8', timeout: 20000, windowsHide: true, maxBuffer: 1024 * 1024 });
-    if (!result.error && result.status === 0) return JSON.parse(result.stdout);
-  }
-  throw new Error('Мост VPS недоступен. Проверьте SSH и установку scripts/bridge-store.js на сервере.');
+  return runBridgeTransport(request, () => spawnSync('ssh', args, {
+    input: JSON.stringify(request), encoding: 'utf8', timeout: 45000,
+    windowsHide: true, maxBuffer: 1024 * 1024,
+  }));
 }
 module.exports = { bridgeRequest, deviceId };
