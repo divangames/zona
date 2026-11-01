@@ -1,0 +1,56 @@
+/** Англ. имена для Wikipedia / поиска фото */
+const NAME_EN = {
+  "Майкл Джордан": "Michael Jordan",
+  "Леброн Джеймс": "LeBron James",
+  "Коби Брайант": "Kobe Bryant",
+  "Кевин Дюрант": "Kevin Durant",
+  "Стефен Карри": "Stephen Curry",
+  "Кайри Ирвинг": "Kyrie Irving",
+  "Гяннис Анетокумпо": "Giannis Antetokounmpo",
+  "Лука Дончич": "Luka Doncic",
+  "Джа Морант": "Ja Morant",
+  "Зайон Уильямсон": "Zion Williamson",
+  "Энтони Эдвардс": "Anthony Edwards",
+  "Пол Джордж": "Paul George",
+  "Кавай Леонард": "Kawhi Leonard",
+  "Джеймс Харден": "James Harden",
+  "Дэмиан Лиллард": "Damian Lillard",
+  "Рассел Уэстбрук": "Russell Westbrook",
+  "Крис Пол": "Chris Paul",
+  "Кармело Энтони": "Carmelo Anthony",
+  "Аллен Айверсон": "Allen Iverson",
+  "Шакил О'Нил": "Shaquille O'Neal",
+  "Анферни Хардауэй": "Anfernee Hardaway",
+  "Чарльз Баркли": "Charles Barkley",
+  "Гэри Пейтон": "Gary Payton",
+  "Скотти Пиппен": "Scottie Pippen",
+  "Трейси МакГрэйди": "Tracy McGrady",
+  "Деррик Роуз": "Derrick Rose",
+  "Дуэйн Уэйд": "Dwyane Wade",
+  "Винс Картер": "Vince Carter",
+  "Грант Хилл": "Grant Hill",
+  "Патрик Юинг": "Patrick Ewing",
+  "Джулиус «Доктор Джей» Эрвинг": "Julius Erving",
+  "Ларри Бёрд": "Larry Bird",
+  "Мэджик Джонсон": "Magic Johnson",
+  "Уолт «Клайд» Фрейзер": "Walt Frazier",
+  "Билл Рассел": "Bill Russell",
+  "Уилт Чемберлен": "Wilt Chamberlain",
+  "Карим Абдул-Джаббар": "Kareem Abdul-Jabbar",
+  "Хаким Оладжувон": "Hakeem Olajuwon",
+  "Дэвид Робинсон": "David Robinson",
+  "Доминик Уилкинс": "Dominique Wilkins",
+  "Джейсон Тейтум": "Jayson Tatum",
+  "Девин Букер": "Devin Booker",
+  "ЛаМело Болл": "LaMelo Ball",
+  "Деннис Родман": "Dennis Rodman",
+  "Исайя Томас": "Isiah Thomas",
+  "Рэй Аллен": "Ray Allen",
+};
+
+function getPlayerNameEn(player) {
+  if (player?.nameEn) return player.nameEn;
+  return NAME_EN[player?.name] || player?.name || "";
+}
+
+module.exports = { getPlayerNameEn, NAME_EN };

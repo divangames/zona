@@ -1,0 +1,20 @@
+node_modules/
+dist/
+release/
+.env
+deploy.local.env
+vps-credentials.*
+data/catalog-cache.json
+data/catalog-feed.xml
+data/style-samples.json
+*.log
+reports/current.json
+reports/*.json
+!reports/example.json
+.env.*
+!.env.example
+*.pem
+*.key
+*.part
+/photo_*.jpg
+/Текстовый документ.txt

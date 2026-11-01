@@ -1,0 +1,419 @@
+{
+  "version": 1,
+  "players": [
+    {
+      "name": "Майкл Джордан",
+      "birth": "1963-02-17",
+      "death": null,
+      "careerStart": 1984,
+      "careerEnd": 2003,
+      "sneakers": ["Air Jordan 1", "AJ3", "AJ4", "AJ11", "линия Jordan Brand"],
+      "fact": "Линия Air Jordan (1985) задала стандарты basketball lifestyle и коллабораций."
+    },
+    {
+      "name": "Леброн Джеймс",
+      "birth": "1984-12-30",
+      "death": null,
+      "careerStart": 2003,
+      "careerEnd": null,
+      "sneakers": ["Nike LeBron (с 2003)", "LeBron XX", "Soldier", "Witness"],
+      "fact": "Один из самых долгих контрактов Nike в истории NBA — линия LeBron идёт уже более 20 сезонов."
+    },
+    {
+      "name": "Коби Брайант",
+      "birth": "1978-08-23",
+      "death": "2020-01-26",
+      "careerStart": 1996,
+      "careerEnd": 2016,
+      "sneakers": ["adidas KB8", "Nike Kobe IV–XI", "Kobe A.D.", "Kobe Protro"],
+      "fact": "Серия Kobe с низким профилем изменила подход к лёгкости и скорости на площадке."
+    },
+    {
+      "name": "Кевин Дюрант",
+      "birth": "1988-09-29",
+      "death": null,
+      "careerStart": 2007,
+      "careerEnd": null,
+      "sneakers": ["Nike KD 1–17", "KD Trey", "KD Elevation"],
+      "fact": "Линия KD сочетает универсальность форварда и технологии Zoom/Air для атаки с периметра."
+    },
+    {
+      "name": "Стефен Карри",
+      "birth": "1988-03-14",
+      "death": null,
+      "careerStart": 2009,
+      "careerEnd": null,
+      "sneakers": ["Under Armour Curry 1–11", "Curry Flow", "Curry Fox"],
+      "fact": "Curry поднял Under Armour в топ basketball-брендов; Flow без шнурков стал визитной карточкой линии."
+    },
+    {
+      "name": "Кайри Ирвинг",
+      "birth": "1992-03-23",
+      "death": null,
+      "careerStart": 2011,
+      "careerEnd": null,
+      "sneakers": ["Nike Kyrie 1–8", "Kyrie Infinity", "линия ANTA Kyrie (после Nike)"],
+      "fact": "Kyrie с акцентом на grip и ротацию стопы — эталон для дриблинга и резких смен направления."
+    },
+    {
+      "name": "Гяннис Анетокумпо",
+      "birth": "1994-12-06",
+      "death": null,
+      "careerStart": 2013,
+      "careerEnd": null,
+      "sneakers": ["Nike Zoom Freak 1–6", "Freak EP"],
+      "fact": "Zoom Freak создан под мощь и длину шага «Греческого фрика» — массивная подошва и стабильность."
+    },
+    {
+      "name": "Лука Дончич",
+      "birth": "1999-02-28",
+      "death": null,
+      "careerStart": 2018,
+      "careerEnd": null,
+      "sneakers": ["Jordan Luka 1–3", "Jordan Luka .77"],
+      "fact": "Первая сигнатурная линия Jordan Brand для европейской звезды нового поколения."
+    },
+    {
+      "name": "Джа Морант",
+      "birth": "1999-08-10",
+      "death": null,
+      "careerStart": 2019,
+      "careerEnd": null,
+      "sneakers": ["Nike Ja 1", "Ja 2", "Ja 3"],
+      "fact": "Ja — одна из самых ярких молодых сигнатур Nike с агрессивным дизайном под атлетичный стиль."
+    },
+    {
+      "name": "Зайон Уильямсон",
+      "birth": "2000-07-06",
+      "death": null,
+      "careerStart": 2019,
+      "careerEnd": null,
+      "sneakers": ["Jordan Zion 1–3", "Zion 2 SP"],
+      "fact": "Zion разрабатывали под экстремальную нагрузку тяжёлого форварда — усиленные зоны и Air."
+    },
+    {
+      "name": "Энтони Эдвардс",
+      "birth": "2001-08-05",
+      "death": null,
+      "careerStart": 2020,
+      "careerEnd": null,
+      "sneakers": ["adidas AE 1", "AE 1 Low", "AE 2"],
+      "fact": "AE (Anthony Edwards) — флагман adidas basketball нового поколения после Harden/Dame."
+    },
+    {
+      "name": "Пол Джордж",
+      "birth": "1990-05-02",
+      "death": null,
+      "careerStart": 2010,
+      "careerEnd": null,
+      "sneakers": ["Nike PG 1–6", "PG Infinity"],
+      "fact": "Линия PG популярна у любителей за сбалансированную цену и универсальный outdoor/indoor."
+    },
+    {
+      "name": "Кавай Леонард",
+      "birth": "1991-06-29",
+      "death": null,
+      "careerStart": 2011,
+      "careerEnd": null,
+      "sneakers": ["New Balance Kawhi", "OMN1S", "KAWHI IV"],
+      "fact": "Кавай ушёл в New Balance — редкий случай сигнатуры у «большой четвёрки» вне Nike/Jordan."
+    },
+    {
+      "name": "Джеймс Харден",
+      "birth": "1989-08-26",
+      "death": null,
+      "careerStart": 2009,
+      "careerEnd": null,
+      "sneakers": ["adidas Harden Vol. 1–8", "Harden Vol. 9"],
+      "fact": "Harden Vol. с Boost и низким силуэтом — эталон для разводящих и шагов в трёх очках."
+    },
+    {
+      "name": "Дэмиан Лиллард",
+      "birth": "1990-07-15",
+      "death": null,
+      "careerStart": 2012,
+      "careerEnd": null,
+      "sneakers": ["adidas Dame 1–9", "Dame Certified"],
+      "fact": "Dame — одна из самых стабильных линеек adidas по соотношению цена/технологии Bounce/Lightstrike."
+    },
+    {
+      "name": "Рассел Уэстбрук",
+      "birth": "1988-11-12",
+      "death": null,
+      "careerStart": 2008,
+      "careerEnd": null,
+      "sneakers": ["Jordan Why Not? 0.1–0.6", "Westbrook One Take"],
+      "fact": "Why Not? — экспериментальный дизайн Jordan под эксцентричный стиль и мощные рывки."
+    },
+    {
+      "name": "Крис Пол",
+      "birth": "1985-05-06",
+      "death": null,
+      "careerStart": 2005,
+      "careerEnd": null,
+      "sneakers": ["Jordan CP3.I–XII", "CP3.VIII AE"],
+      "fact": "CP3 — одна из длиннейших сигнатурных серий Jordan для плеймейкера."
+    },
+    {
+      "name": "Кармело Энтони",
+      "birth": "1984-05-29",
+      "death": null,
+      "careerStart": 2003,
+      "careerEnd": 2022,
+      "sneakers": ["Jordan Melo 1.5", "Melo M13", "Air Jordan Melo PE"],
+      "fact": "Melo M-series сопровождала карьеру снайпера; позже — культовые PE на Jordan Retro."
+    },
+    {
+      "name": "Аллен Айверсон",
+      "birth": "1975-06-07",
+      "death": null,
+      "careerStart": 1996,
+      "careerEnd": 2010,
+      "sneakers": ["Reebok Question", "Answer I–V", "Answer DMX"],
+      "fact": "Question (1996) с Iverson — икона 90-х; Answer с DMX — культовая Reebok basketball эра."
+    },
+    {
+      "name": "Шакил О'Нил",
+      "birth": "1972-03-06",
+      "death": null,
+      "careerStart": 1992,
+      "careerEnd": 2011,
+      "sneakers": ["Reebok Shaq Attaq", "Shaqnosis", "Dunkman", "Shaq Reebok PE"],
+      "fact": "Shaqnosis с «заводной» подошвой — одна из самых узнаваемых 90-х basketball моделей."
+    },
+    {
+      "name": "Анферни Хардауэй",
+      "birth": "1971-07-18",
+      "death": null,
+      "careerStart": 1993,
+      "careerEnd": 2007,
+      "sneakers": ["Nike Air Penny 1–5", "Air Foamposite One (PE)", "Air Max Penny"],
+      "fact": "Air Penny и Foamposite связаны с «Lil Penny» — золотая эра Nike 90-х."
+    },
+    {
+      "name": "Чарльз Баркли",
+      "birth": "1963-02-20",
+      "death": null,
+      "careerStart": 1984,
+      "careerEnd": 2000,
+      "sneakers": ["Nike Air Max CB 34", "CB 94", "Sir Charles"],
+      "fact": "Air Max CB 34 с видимой Air — культовая модель под мощь тяжёлого форварда."
+    },
+    {
+      "name": "Гэри Пейтон",
+      "birth": "1968-07-23",
+      "death": null,
+      "careerStart": 1990,
+      "careerEnd": 2007,
+      "sneakers": ["Nike Air Zoom GP", "Air Zoom GP II («The Glove»)"],
+      "fact": "Air Zoom GP с перчаточным верхом — легенда defensive basketball и 90-х Nike."
+    },
+    {
+      "name": "Скотти Пиппен",
+      "birth": "1965-09-25",
+      "death": null,
+      "careerStart": 1987,
+      "careerEnd": 2004,
+      "sneakers": ["Nike Air Pippen 1", "Pippen 96", "Air More Uptempo (PE)"],
+      "fact": "Air Pippen 1 с характерным ремнём — сигнатура второй звезды Bulls dynasty."
+    },
+    {
+      "name": "Трейси МакГрэйди",
+      "birth": "1979-08-24",
+      "death": null,
+      "careerStart": 1997,
+      "careerEnd": 2013,
+      "sneakers": ["adidas T-Mac 1–6", "T-Mac Millennium"],
+      "fact": "T-Mac 1–3 — культ 2000-х; adidas возрождал линию в ретро для коллекционеров."
+    },
+    {
+      "name": "Деррик Роуз",
+      "birth": "1988-10-04",
+      "death": null,
+      "careerStart": 2008,
+      "careerEnd": null,
+      "sneakers": ["adidas D Rose 1–11", "D Rose Son of Chi"],
+      "fact": "D Rose 1 (MVP сезон) — икона Boost и Chicago basketball."
+    },
+    {
+      "name": "Дуэйн Уэйд",
+      "birth": "1982-01-17",
+      "death": null,
+      "careerStart": 2003,
+      "careerEnd": 2019,
+      "sneakers": ["Converse Wade 1", "Li-Ning Way of Wade", "WOW 10"],
+      "fact": "Way of Wade в Li-Ning — успешный пример звезды NBA со своим глобальным брендом кроссовок."
+    },
+    {
+      "name": "Винс Картер",
+      "birth": "1977-01-26",
+      "death": null,
+      "careerStart": 1998,
+      "careerEnd": 2020,
+      "sneakers": ["Nike Shox VC II–V", "Shox BB4 (PE)", "AND1 Tai Chi (эпизод)"],
+      "fact": "Shox BB4 на dunk contest 2000 — одна из самых знаменитых basketball-кроссовок в истории."
+    },
+    {
+      "name": "Грант Хилл",
+      "birth": "1972-10-05",
+      "death": null,
+      "careerStart": 1994,
+      "careerEnd": 2013,
+      "sneakers": ["Fila GH 1", "GH 2", "Fila Grant Hill 3"],
+      "fact": "Fila GH — редкий случай, когда сигнатура non-Nike бренда конкурировала с гигантами 90-х."
+    },
+    {
+      "name": "Патрик Юинг",
+      "birth": "1962-08-05",
+      "death": null,
+      "careerStart": 1985,
+      "careerEnd": 2002,
+      "sneakers": ["Ewing Athletics 33 Hi", "Ewing Rogue", "Ewing Focus"],
+      "fact": "Ewing Athletics — собственный бренд центра Knicks; возрождения моделей до сих пор в продаже."
+    },
+    {
+      "name": "Джулиус «Доктор Джей» Эрвинг",
+      "birth": "1950-02-22",
+      "death": null,
+      "careerStart": 1971,
+      "careerEnd": 1987,
+      "sneakers": ["Converse Pro Leather", "Dr. J", "Converse Weapon (эпоха)"],
+      "fact": "Dr. J и Pro Leather — мост между ABA/NBA и современным sneaker marketing."
+    },
+    {
+      "name": "Ларри Бёрд",
+      "birth": "1956-12-07",
+      "death": null,
+      "careerStart": 1979,
+      "careerEnd": 1992,
+      "sneakers": ["Converse Weapon", "Converse Bird", "Jordan Legend (позже)"],
+      "fact": "Converse Weapon — культовая модель, связанная с rivalry Bird vs Magic."
+    },
+    {
+      "name": "Мэджик Джонсон",
+      "birth": "1959-08-14",
+      "death": null,
+      "careerStart": 1979,
+      "careerEnd": 1996,
+      "sneakers": ["Converse Weapon", "Converse Magic", "Nike Air Force (PE эпоха)"],
+      "fact": "Magic и Weapon — символ Showtime Lakers и золотой эры Converse в NBA."
+    },
+    {
+      "name": "Уолт «Клайд» Фрейзер",
+      "birth": "1945-03-29",
+      "death": null,
+      "careerStart": 1967,
+      "careerEnd": 1980,
+      "sneakers": ["Puma Clyde", "Puma Knit", "Puma RS-X Clyde (ретро)"],
+      "fact": "Puma Clyde (1973) — первая подписная баскетбольная модель в истории."
+    },
+    {
+      "name": "Билл Рассел",
+      "birth": "1934-02-12",
+      "death": "2022-07-31",
+      "careerStart": 1956,
+      "careerEnd": 1969,
+      "sneakers": ["Converse Chuck Taylor", "Pro Leather (эпоха)"],
+      "fact": "11 чемпионских колец Celtics; Chuck Taylor — символ basketball до эры сигнатур."
+    },
+    {
+      "name": "Уилт Чемберлен",
+      "birth": "1936-08-21",
+      "death": "1999-10-12",
+      "careerStart": 1959,
+      "careerEnd": 1973,
+      "sneakers": ["Converse Chuck Taylor", "Chamberlain Pro (редкие PE)"],
+      "fact": "100 очков за матч; фигура, с которой Converse связывала доминирование в paint."
+    },
+    {
+      "name": "Карим Абдул-Джаббар",
+      "birth": "1947-04-16",
+      "death": null,
+      "careerStart": 1969,
+      "careerEnd": 1989,
+      "sneakers": ["adidas Superstar (иконическая связь)", "adidas Jabbar Low"],
+      "fact": "Skyhook и Superstar — одна из самых узнаваемых связок игрок-модель в истории."
+    },
+    {
+      "name": "Хаким Оладжувон",
+      "birth": "1963-01-21",
+      "death": null,
+      "careerStart": 1984,
+      "careerEnd": 2002,
+      "sneakers": ["Etonic Dream Shake", "Nike Hakeem (редкие)", "Reebok спонсорство"],
+      "fact": "«Dream Shake» — редкая сигнатура под центра; культ среди коллекционеров 90-х."
+    },
+    {
+      "name": "Дэвид Робинсон",
+      "birth": "1965-08-06",
+      "death": null,
+      "careerStart": 1989,
+      "careerEnd": 2003,
+      "sneakers": ["Nike Air Force Max", "Air Admiral", "Flightposite (PE)"],
+      "fact": "Admiral — сигнатура «Адмирала» Spurs dynasty 90-х."
+    },
+    {
+      "name": "Доминик Уилкинс",
+      "birth": "1960-01-12",
+      "death": null,
+      "careerStart": 1982,
+      "careerEnd": 1999,
+      "sneakers": ["adidas Dominique", "Nike Alpha Force (эпоха)"],
+      "fact": "«Human Highlight Film»; Dominique — ранняя adidas сигнатура для данков."
+    },
+    {
+      "name": "Джейсон Тейтум",
+      "birth": "1998-03-03",
+      "death": null,
+      "careerStart": 2017,
+      "careerEnd": null,
+      "sneakers": ["Jordan Tatum 1", "Tatum 2", "Tatum 3"],
+      "fact": "Tatum — опора Jordan Brand среди молодых звёзд Восточной конференции."
+    },
+    {
+      "name": "Девин Букер",
+      "birth": "1996-10-30",
+      "death": null,
+      "careerStart": 2015,
+      "careerEnd": null,
+      "sneakers": ["Nike Book 1", "Book 1 EP"],
+      "fact": "Book 1 — первая полноценная сигнатура Букера после годов PE на Kobe line."
+    },
+    {
+      "name": "ЛаМело Болл",
+      "birth": "2001-08-22",
+      "death": null,
+      "careerStart": 2020,
+      "careerEnd": null,
+      "sneakers": ["PUMA MB.01", "MB.02", "MB.03", "MB.04"],
+      "fact": "MB — одна из самых успешных сигнатур PUMA в NBA за последние десятилетия."
+    },
+    {
+      "name": "Деннис Родман",
+      "birth": "1961-05-13",
+      "death": null,
+      "careerStart": 1986,
+      "careerEnd": 2000,
+      "sneakers": ["Nike Air Shake Ndestrukt", "Air Much Uptempo (PE)", "Converse Aero Jam"],
+      "fact": "Rodman и яркие PE Uptempo — культ 90-х off-court style."
+    },
+    {
+      "name": "Исайя Томас",
+      "birth": "1961-04-30",
+      "death": null,
+      "careerStart": 1981,
+      "careerEnd": 1994,
+      "sneakers": ["Converse Weapon", "Pro Leather IT", "Nike Air Alpha Force (эпоха)"],
+      "fact": "Лидер Bad Boys Pistons; Weapon — общая платформа звёзд Converse 80-х."
+    },
+    {
+      "name": "Рэй Аллен",
+      "birth": "1975-07-24",
+      "death": null,
+      "careerStart": 1996,
+      "careerEnd": 2014,
+      "sneakers": ["Jordan Jumpman Team FBI", "Air Jordan XIV (финал карьеры)"],
+      "fact": "Финал карьеры в Air Jordan XIV — культовый момент для sneaker-истории NBA."
+    }
+  ]
+}

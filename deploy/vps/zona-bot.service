@@ -1,0 +1,15 @@
+[Unit]
+Description=ZonaDeck Telegram Bot
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/zonadeck
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node bot/index.js
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
