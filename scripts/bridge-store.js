@@ -11,6 +11,10 @@ try {
     case 'register': store.register(request.route); result = { ok: true }; break;
     case 'bind': store.bind(request.id, request.messageId); result = { ok: true }; break;
     case 'claim': result = { jobs: store.claim(request.deviceId), processing: store.processing(request.deviceId) }; break;
+    case 'claimOnce':
+      if (typeof request.requestId !== 'string' || !/^[a-zA-Z0-9_-]{1,100}$/.test(request.requestId)) throw new Error('Invalid claim request ID');
+      result = { jobs: store.claim(request.deviceId, request.requestId), processing: store.processing(request.deviceId) }; break;
+    case 'ackOnce': store.ack(request.deviceId, request.id); result = { ok: true }; break;
     case 'status': result = { processing: store.processing(request.deviceId) }; break;
     case 'ack': store.ack(request.deviceId, request.id); result = { ok: true }; break;
     default: throw new Error('Unknown bridge action');

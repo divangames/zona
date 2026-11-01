@@ -66,7 +66,8 @@ class BridgeStore {
     this.writeNew('pending', id, job);
     return { id, duplicate: false };
   }
-  claim(deviceId) {
+  claim(deviceId, requestId) {
+    if (requestId !== undefined) checkedId(requestId);
     checkedId(deviceId);
     const lock = path.join(this.root, `claim-${deviceId}.lock`);
     if (fs.existsSync(lock)) {
@@ -79,11 +80,18 @@ class BridgeStore {
     catch (error) { if (error.code === 'EEXIST') return []; throw error; }
     try {
     // Unacknowledged jobs are never automatically resent: forwarding may already have succeeded.
-    if (this.processing(deviceId).length) return [];
-    for (const name of fs.readdirSync(path.join(this.root, 'pending')).sort()) {
+    const processing = this.processing(deviceId);
+    if (processing.length) return requestId ? processing.filter(job => job.claimRequestId === requestId) : [];
+    for (const name of fs.readdirSync(path.join(this.root, 'pending')).filter(n => n.endsWith('.json')).sort()) {
       const id = name.replace(/\.json$/, '');
       const job = this.read('pending', id);
       if (!job || job.deviceId !== deviceId) continue;
+      if (requestId) {
+        job.claimRequestId = requestId;
+        const pending = this.file('pending', id);
+        fs.writeFileSync(pending + '.tmp', JSON.stringify(job), { mode: 0o600 });
+        fs.renameSync(pending + '.tmp', pending);
+      }
       try { fs.renameSync(this.file('pending', id), this.file('processing', id)); }
       catch (error) { if (error.code === 'ENOENT') continue; throw error; }
       return [job];
@@ -96,6 +104,9 @@ class BridgeStore {
     return fs.readdirSync(path.join(this.root, 'processing')).map(n => this.read('processing', n.replace(/\.json$/, ''))).filter(j => j?.deviceId === deviceId);
   }
   ack(deviceId, id) {
+    checkedId(deviceId);
+    const completed = this.read('done', id);
+    if (completed?.deviceId === deviceId) return;
     const job = this.read('processing', id);
     if (!job || job.deviceId !== checkedId(deviceId)) throw new Error('Claimed task not found for device');
     fs.renameSync(this.file('processing', id), this.file('done', id));

@@ -16,6 +16,7 @@ async function main() {
   if ((await telegram.getChat(owner)).type !== 'private') throw new Error('Нужен личный чат владельца.');
   const health = bridgeRequest({ action: 'health', ownerId: owner, tokenDigest: createHash('sha256').update(token).digest('hex') });
   if (health.protocolVersion !== 1) throw new Error('Обновите файлы моста на VPS; протокол проверки не поддерживается.');
+  if (!health.idempotentInbox) throw new Error('Обновите bridge-store.js, codexBridgeStore.js и bridgeHealth.js на VPS для безопасных повторов очереди.');
   if (!health.tokenMatches || !health.ownerMatches) throw new Error('Локальный токен или владелец не совпадают с приёмником VPS. Используйте настройки существующего бота, не перевыпускайте токен ради второго ПК.');
   if (!health.receiverHealthy) throw new Error('Нет свежего успешного приёма Telegram на VPS. Проверьте сервис; после запуска подождите один цикл polling (до 30 секунд).');
   const status = bridgeRequest({ action: 'status', deviceId: deviceId() });

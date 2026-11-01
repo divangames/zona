@@ -19,7 +19,7 @@ test('Readiness rejects stale receivers and mismatched credentials without expos
   const pulse = (healthy, age) => fs.writeFileSync(path.join(dir, 'receiver-health.json'), JSON.stringify({ healthy, checkedAt: new Date(now - age).toISOString() }));
   assert.equal(healthStatus(root, request, now).receiverHealthy, false);
   pulse(true, 2000);
-  assert.deepEqual(healthStatus(root, request, now), { protocolVersion: 1, receiverHealthy: true, tokenMatches: true, ownerMatches: true });
+  assert.deepEqual(healthStatus(root, request, now), { protocolVersion: 1, idempotentInbox: true, receiverHealthy: true, tokenMatches: true, ownerMatches: true });
   assert.equal(healthStatus(root, { ...request, ownerId: '456' }, now).ownerMatches, false);
   assert.equal(healthStatus(root, { ...request, tokenDigest: 'wrong' }, now).tokenMatches, false);
   pulse(true, 120001);
@@ -118,4 +118,47 @@ test('Multi-part reports bind every message and attach controls only to last par
   assert.ok(sent.slice(0, -1).every(extra => !extra.reply_markup));
   assert.deepEqual(sent.at(-1).reply_markup, keyboard);
   assert.match(formatProjectReport(report).join(''), /&lt;check&gt;/);
+});
+
+
+test('Lost claim response replays the same job only within the same request; ack is idempotent', t => {
+  const { store, route } = setup(t);
+  const first = store.enqueue(route, 'first task', 'one');
+  store.enqueue(route, 'second task', 'two');
+  const { runBridgeTransport } = require('../services/bridgeTransport');
+  let calls = 0;
+  const request = { action: 'claimOnce', requestId: 'request-1' };
+  const response = runBridgeTransport(request, () => {
+    const jobs = store.claim('pc-1', request.requestId);
+    calls++;
+    return calls === 1 ? { status: 255 } : { status: 0, stdout: JSON.stringify({ jobs }) };
+  }, () => {});
+  assert.equal(calls, 2);
+  assert.equal(response.jobs.length, 1);
+  const id = response.jobs[0].id;
+  assert.equal(store.processing('pc-1').length, 1);
+  assert.deepEqual(store.claim('pc-1', 'another-request'), []);
+  assert.deepEqual(store.claim('other-pc', 'request-1'), []);
+  store.ack('pc-1', id);
+  store.ack('pc-1', id);
+  assert.throws(() => store.ack('other-pc', id));
+  assert.equal(store.processing('pc-1').length, 0);
+  assert.equal(store.claim('pc-1', 'request-2').length, 1);
+});
+
+
+test('Interrupted pending rewrite is ignored and lost ack response can be retried', t => {
+ const { store, route } = setup(t);
+ fs.writeFileSync(path.join(store.root, 'pending', 'orphan.json.tmp'), '{');
+ const enqueued = store.enqueue(route, 'test task', 'ack-test');
+ assert.equal(store.claim('pc-1', 'request-ack')[0].id, enqueued.id);
+ const { runBridgeTransport } = require('../services/bridgeTransport');
+ let calls=0;
+ runBridgeTransport({action:'ackOnce'}, () => {
+   store.ack('pc-1', enqueued.id);
+   return ++calls===1 ? {status:255} : {status:0,stdout:'{"ok":true}'};
+ }, () => {});
+ assert.equal(calls,2);
+ assert.equal(store.processing('pc-1').length,0);
+ assert.deepEqual(store.claim('pc-1', 'new-request'),[]);
 });

@@ -9,7 +9,7 @@ function failureKind(result) {
 }
 
 function runBridgeTransport(request, run, sleep = ms => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)) {
-  const repeatable = ['health', 'status', 'bind'].includes(request.action);
+  const repeatable = ['health', 'status', 'bind', 'ackOnce'].includes(request.action) || (request.action === 'claimOnce' && /^[a-zA-Z0-9_-]{1,100}$/.test(request.requestId || ''));
   let kind;
   for (let attempt = 0; attempt < 3; attempt++) {
     const result = run();
@@ -18,7 +18,7 @@ function runBridgeTransport(request, run, sleep = ms => Atomics.wait(new Int32Ar
       catch { kind = 'invalid-response'; }
     } else kind = failureKind(result);
     // Connection/banner failures precede authentication and remote execution.
-    // A lost response to claim/ack/register is ambiguous: never replay it.
+    // Legacy claim/ack/register are ambiguous; claimOnce/ackOnce are replay-safe.
     if (['configuration', 'missing-ssh', 'remote'].includes(kind) || (!repeatable && kind !== 'connection')) break;
     if (attempt < 2) sleep(500 * 2 ** attempt);
   }

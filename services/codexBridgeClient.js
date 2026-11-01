@@ -18,6 +18,9 @@ function deviceId() {
 }
 
 function bridgeRequest(request) {
+  // Keep the same operation ID for transport retries, but never across deliveries.
+  if (request.action === 'claim') request = { ...request, action: 'claimOnce', requestId: randomUUID() };
+  if (request.action === 'ack') request = { ...request, action: 'ackOnce' };
   const root = path.resolve(__dirname, '..');
   const configFile = path.join(root, 'deploy.local.env');
   if (!fs.existsSync(configFile)) throw new Error('Для обратной связи нужен deploy.local.env с SSH-доступом к VPS.');

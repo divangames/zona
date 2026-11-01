@@ -13,6 +13,7 @@ function healthStatus(root, request, now = Date.now()) {
   const age = now - Date.parse(pulse.checkedAt);
   return {
     protocolVersion: 1,
+    idempotentInbox: true,
     receiverHealthy: pulse.healthy === true && age >= 0 && age < 120000,
     tokenMatches: !!env.TELEGRAM_BOT_TOKEN && createHash('sha256').update(env.TELEGRAM_BOT_TOKEN).digest('hex') === request.tokenDigest,
     ownerMatches: !!env.TELEGRAM_OWNER_CHAT_ID && env.TELEGRAM_OWNER_CHAT_ID === String(request.ownerId),
