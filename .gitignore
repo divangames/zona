@@ -18,3 +18,5 @@ reports/*.json
 *.part
 /photo_*.jpg
 /Текстовый документ.txt
+data/codex-bridge/
+/VPS.txt

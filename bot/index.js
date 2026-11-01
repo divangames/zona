@@ -29,6 +29,8 @@ const {
 const { sendCalendarMenu } = require("./handlers/basketballCalendar");
 const { sendSeoArticle } = require("./handlers/seoNews");
 const { yandexConfigured } = require("../services/yandexCloud");
+const { BridgeStore } = require("../services/codexBridgeStore");
+const { createCodexBridgeMiddleware } = require("./handlers/codexBridge");
 
 if (!config.telegram.token) {
   console.error("Ошибка: задайте TELEGRAM_BOT_TOKEN в файле .env");
@@ -39,6 +41,9 @@ if (!config.telegram.token) {
 const bot = new Telegraf(config.telegram.token, {
   handlerTimeout: Infinity,
 });
+
+// Uses the existing bot receiver; never start another Telegram polling process.
+bot.use(createCodexBridgeMiddleware(new BridgeStore(require('path').join(__dirname, '..', 'data', 'codex-bridge'))));
 
 bot.use(async (ctx, next) => {
   const chatType = ctx.chat?.type || "-";

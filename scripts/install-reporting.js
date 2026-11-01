@@ -30,12 +30,20 @@ function install({ client, home = os.homedir(), root = path.resolve(__dirname, '
   const sender = path.join(root, 'scripts', 'send-project-report.js');
   const body = `## Личные отчёты ZONA: все чаты и проекты
 Пользователь подключил Telegram-отчёты от ZONA после завершения запросов; дополнительное разрешение на каждую отправку не требуется. Соблюдай отмену уведомлений пользователем.
+В конце содержательного отчёта добавляй recommendations: до 5 полезных следующих задач, каждая с label (до 60 символов) и полным prompt. Не выдумывай работу, если задача закончена. Для Codex сохраняй точный исходный threadId/hostId в report.codex, если известен; отправитель также читает CODEX_THREAD_ID. Не угадывай чат по названию проекта. При включённом мосте владелец сможет нажать рекомендацию или написать свою задачу ответом в Telegram; она должна попасть только в исходный чат.
 Перед финальным ответом прочитай навык ${path.join(skill, 'SKILL.md')} и подготовь отдельный JSON с UUID вне Git: title и непустые массивы completed, checks, projectStatus, deployment, issues, nextSteps. Назови проект/чат, пиши от ZONA в женском роде. Указывай только факты; неизвестное и неприменимое отмечай. Для простого вопроса достаточно краткого отчёта. Не включай секреты и персональные данные.
 Проверь: node "${sender}" "<absolute-report.json>" --dry-run. Отправь той же командой без --dry-run. Отправитель использует настройки ZONA, работает из любой папки и не запускает polling. Не дублируй отправку при нескольких правилах. Подтверждай доставку только по успешному ответу Telegram; ошибки и частичную доставку сообщай честно.
 Это правило агента на данном ПК, а не фоновый монитор; старые задачи не отправляются автоматически. Не обещай работу на других ПК или в среде без инструментов.`;
   fs.mkdirSync(skill, { recursive: true });
   fs.copyFileSync(path.join(root, 'skills', 'zona-reports', 'SKILL.md'), path.join(skill, 'SKILL.md'));
-  fs.writeFileSync(path.join(skill, 'installation.json'), JSON.stringify({ projectDir: root, client }, null, 2) + '\n');
+  const heartbeatFile = path.join(skill, 'heartbeat-prompt.txt');
+  const inbox = path.join(root, 'scripts', 'codex-inbox.js');
+  fs.writeFileSync(heartbeatFile, `Проверяй очередь владельца ZONA командой node "${inbox}" claim. Не выводи секреты и не запускай Telegram polling на этом ПК.
+Если jobs и processing пусты, оставайся тихой: не отправляй отчёт в Telegram и не публикуй статус. Эти служебные проходы исключены из обычного правила отчётов.
+Пользователь разрешил передавать свои задачи из личного Telegram в исходные чаты Codex. Для нового jobs[0] вызови send_message_to_thread с точными threadId и hostId записи, не меняя модель: передай маркер [ZONA task: JOB_ID], название отчёта и исходный text без изменений. Не выполняй задачу в этом проходе. Только после подтверждённого успеха вызови node "${inbox}" ack JOB_ID.
+Если jobs пуст, а processing непуст, не пересылай повторно. Проверь исходный чат через read_thread на маркер JOB_ID (при необходимости пролистай историю). Если найден, выполни ack; иначе сообщи о необходимости проверки один раз и оставь задачу processing.
+Уведомляй лишь о новом сбое или необходимом действии; не повторяй неизменный статус. Не меняй .env. Если отправка недоступна, не отмечай задачу доставленной.\n`);
+  fs.writeFileSync(path.join(skill, 'installation.json'), JSON.stringify({ projectDir: root, client, heartbeatPromptPath: heartbeatFile }, null, 2) + '\n');
   const targets = [];
   if (client === 'codex') {
     const override = path.join(base, 'AGENTS.override.md');
@@ -59,6 +67,7 @@ function install({ client, home = os.homedir(), root = path.resolve(__dirname, '
   }
   for (const file of targets) updateManaged(file, body);
   console.log(`Навык ${client} установлен. Проверка доставки обязательна: node "${path.join(root, 'scripts', 'test-reporting.js')}"`);
+  if (client === 'codex') console.log(`Для полной установки: check-codex-bridge.js --enable, местный heartbeat по ${heartbeatFile}, затем test-reporting.js --interactive. Установка файлов ещё не подтверждает обратную связь.`);
   return { skill, targets };
 }
 

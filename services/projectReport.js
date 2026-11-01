@@ -17,6 +17,12 @@ function validateReport(report) {
       throw new Error(`Раздел ${key} должен содержать непустой список строк.`);
     }
   }
+  if (report.recommendations !== undefined) {
+    if (!Array.isArray(report.recommendations) || report.recommendations.length > 5 ||
+        report.recommendations.some(item => !item || typeof item.label !== 'string' || !item.label.trim() || item.label.length > 60 || typeof item.prompt !== 'string' || !item.prompt.trim() || item.prompt.length > 12000)) {
+      throw new Error('recommendations: до 5 рекомендаций с label (до 60 символов) и prompt (до 12000).');
+    }
+  }
 }
 
 function escapeHtml(value) {
@@ -46,6 +52,12 @@ function formatProjectReport(report, now = new Date()) {
       blocks.push(...textChunks(`• ${item}`).map(escapeHtml));
     }
   }
+  if (report.recommendations?.length) {
+    blocks.push('<b>💡 Рекомендации Codex — следующие задачи</b>');
+    report.recommendations.forEach((item, index) => {
+      blocks.push(...textChunks(`${index + 1}. ${item.label}\n${item.prompt}`).map(escapeHtml));
+    });
+  }
   blocks.push('С заботой о проекте, твоя ZONA 💜');
   const messages = [];
   let current = '';
@@ -60,7 +72,7 @@ function formatProjectReport(report, now = new Date()) {
   return messages;
 }
 
-async function sendProjectReport(telegram, chatId, report) {
+async function sendProjectReport(telegram, chatId, report, options = {}) {
   const messages = formatProjectReport(report);
   if (!/^[1-9]\d*$/.test(String(chatId || ''))) {
     throw new Error('Укажите положительный числовой TELEGRAM_OWNER_CHAT_ID в .env.');
@@ -68,13 +80,16 @@ async function sendProjectReport(telegram, chatId, report) {
   const chat = await telegram.getChat(chatId);
   if (chat.type !== 'private') throw new Error('Отчёты ZONA можно отправлять только в личный чат.');
   let sent = 0;
-  for (const message of messages) {
+  for (const [index, message] of messages.entries()) {
     try {
-      await telegram.sendMessage(chatId, message, { parse_mode: 'HTML', disable_web_page_preview: true });
+      const extra = { parse_mode: 'HTML', disable_web_page_preview: true };
+      if (index === messages.length - 1 && options.replyMarkup) extra.reply_markup = options.replyMarkup;
+      const delivered = await telegram.sendMessage(chatId, message, extra);
       sent++;
+      if (options.onDelivered) await options.onDelivered(delivered);
     } catch (error) {
       const code = error.response?.error_code || 'network';
-      throw new Error(`Доставлено частей: ${sent}/${messages.length}. Ошибка Telegram: ${code}. Проверьте личный чат и доступность сети.`);
+      throw new Error(`Доставлено частей: ${sent}/${messages.length}. Ошибка отправки или привязки чата: ${code}. Проверьте Telegram и мост VPS; не повторяйте доставленные части автоматически.`);
     }
   }
   return sent;

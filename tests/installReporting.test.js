@@ -22,6 +22,9 @@ test('Codex preserves existing instructions and is idempotent', t => {
   assert.equal(fs.readFileSync(file, 'utf8'), first);
   assert.ok(first.startsWith('Keep my instructions.\n'));
   assert.ok(fs.existsSync(path.join(home, '.codex', 'skills', 'zona-reports', 'SKILL.md')));
+  const metadata = JSON.parse(fs.readFileSync(path.join(home, '.codex', 'skills', 'zona-reports', 'installation.json'), 'utf8'));
+  assert.ok(fs.existsSync(metadata.heartbeatPromptPath));
+  assert.ok(fs.readFileSync(metadata.heartbeatPromptPath, 'utf8').includes(path.join(metadata.projectDir, 'scripts', 'codex-inbox.js')));
   assert.equal(fs.readdirSync(path.dirname(file)).filter(n => n.includes('zona-backup')).length, 1);
 });
 

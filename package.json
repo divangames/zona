@@ -9,7 +9,7 @@
     "reload-catalog": "node scripts/reload-catalog.js",
     "check-ollama": "node scripts/check-ollama.js",
     "report": "node scripts/send-project-report.js",
-    "test:report": "node --test tests/projectReport.test.js tests/installReporting.test.js",
+    "test:report": "node --test tests/projectReport.test.js tests/installReporting.test.js tests/codexBridge.test.js",
     "report:test": "node scripts/test-reporting.js",
     "report:install": "node scripts/install-reporting.js"
   },
